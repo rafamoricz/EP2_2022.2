@@ -1,7 +1,8 @@
 import random
 
 print('='*70)
-print('\033[35mOlá, você está no Fortuna DesSoft, onde poderá se tornar milionario!\033[m\n')
+print('\033[35mOlá, você está no Fortuna DesSoft, onde poderá se tornar um milionario!\033[m')
+print('='*70,'\n')
 
 nome = input('Qual seu nome? ')
 print('-'*60,'\nOk \033[36m{0}\033[m, você poderá pular 3 vezes e terá 2 ajudas!\n'.format(nome.upper()))
@@ -127,10 +128,13 @@ lista_questoes = {
 }
 
 def sorteia_questao(lista_questoes,nivel):
+    repetida = []
     for q in lista_questoes:
         if q.upper() == nivel[0]:
             lista = lista_questoes[q]
             pergunta = random.choice(lista)
+        if pergunta not in repetida:
+            repetida.append(pergunta)
     return pergunta
 
 #print(sorteia_questao(lista_questoes,nivel))
@@ -151,7 +155,20 @@ def questao_para_texto(pergunta,qt_quest):
                     c = op[alt]
                 else:
                     d = op[alt]
-    questao = '-'*60,'\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}'.format(qt_quest[0],titulo,a,b,c,d)
-    return questao
+    print('-'*60,'\n\033[36mQUESTAO {0}\033[m\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}'.format(qt_quest,titulo,a,b,c,d))
+    return ''
 
-print(questao_para_texto(pergunta,qt_quest))
+for j in len(qt_quest):
+    print(questao_para_texto(pergunta,qt_quest[j]))
+
+    resposta = input('Qual a sua resposta? ')
+    for i in pergunta:
+        if i == 'correta':
+            if resposta.upper() == pergunta[i]:
+                print('\033[32mPARABENS!, Você possui agora R$1000.00!\033[m\n')
+            else:
+                print('\033[33mAh não! Você errou a resposta, infelizmente terá que sair sem nunhum prêmio! :(\033[m\n')
+                quit()
+
+    continuar = input('Aperte \033[32mENTER\033[m para continuar...')
+
