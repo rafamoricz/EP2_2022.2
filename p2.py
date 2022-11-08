@@ -1,9 +1,21 @@
+import random
+
 print('='*70)
 print('\033[35mOlá, você está no Fortuna DesSoft, onde poderá se tornar milionario!\033[m\n')
 
 nome = input('Qual seu nome? ')
 print('-'*60,'\nOk \033[36m{0}\033[m, você poderá pular 3 vezes e terá 2 ajudas!\n'.format(nome.upper()))
 print('\033[34mAs opções de resposta são "A","B","C","D","ajuda","pular" e "parar"\033[m\n')
+continuar = input('Aperte \033[32mENTER\033[m para continuar...')
+
+facil = 'FACIL'
+medio = 'MEDIO'
+dificil = 'DIFICIL'
+nivel = [facil,medio,dificil]
+
+qt_quest = [1,2,3,4,5,6,7,8,9,10]
+
+print('-'*60,'\nO jogo está para começar! E aqui está a primeira questão!\n\nVamos começar com questoes do nivel \033[32m{0}\033[m!'.format(nivel[0]))
 continuar = input('Aperte \033[32mENTER\033[m para continuar...')
 
 lista_questoes = {
@@ -114,3 +126,32 @@ lista_questoes = {
   ]
 }
 
+def sorteia_questao(lista_questoes,nivel):
+    for q in lista_questoes:
+        if q.upper() == nivel[0]:
+            lista = lista_questoes[q]
+            pergunta = random.choice(lista)
+    return pergunta
+
+#print(sorteia_questao(lista_questoes,nivel))
+pergunta = sorteia_questao(lista_questoes,nivel)
+
+def questao_para_texto(pergunta,qt_quest):
+    for i in pergunta:
+        if i == 'titulo':
+            titulo = pergunta[i]
+        if i == 'opcoes':
+            op = pergunta[i]
+            for alt in op:
+                if alt == 'A':
+                    a = op[alt]
+                elif alt == 'B':
+                    b = op[alt]
+                elif alt == 'C':
+                    c = op[alt]
+                else:
+                    d = op[alt]
+    questao = '-'*60,'\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}'.format(qt_quest[0],titulo,a,b,c,d)
+    return questao
+
+print(questao_para_texto(pergunta,qt_quest))
