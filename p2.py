@@ -183,3 +183,7 @@ def valida_questoes():
 
 def sorteia_questao_inedita():
     q = {}
+
+def questao_para_texto():
+    representacao = {}
+    i = 0
