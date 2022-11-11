@@ -187,3 +187,6 @@ def sorteia_questao_inedita():
 def questao_para_texto():
     representacao = {}
     i = 0
+
+def gera_ajuda():
+    q  = {}
