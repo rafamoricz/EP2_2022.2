@@ -180,3 +180,6 @@ def valida_questao():
 
 def valida_questoes():
     lista = []
+
+def sorteia_questao_inedita():
+    q = {}
