@@ -175,3 +175,5 @@ for j in len(qt_quest):
 def transforma_base():
     questoes = []
 
+def valida_questao():
+    chaves = {}
