@@ -207,3 +207,22 @@ for j in range(0, len(qt_quest)):
                 quit()
 
     continuar = input('Aperte \033[32mENTER\033[m para continuar...')
+<<<<<<< HEAD
+=======
+
+def transforma_base():
+    questoes = []
+
+def valida_questao():
+    chaves = {}
+
+def valida_questoes():
+    lista = []
+
+def sorteia_questao_inedita():
+    q = {}
+
+def questao_para_texto():
+    representacao = {}
+    i = 0
+
