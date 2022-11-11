@@ -172,3 +172,6 @@ for j in len(qt_quest):
 
     continuar = input('Aperte \033[32mENTER\033[m para continuar...')
 
+def transforma_base():
+    questoes = []
+
