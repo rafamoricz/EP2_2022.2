@@ -177,3 +177,6 @@ def transforma_base():
 
 def valida_questao():
     chaves = {}
+
+def valida_questoes():
+    lista = []
