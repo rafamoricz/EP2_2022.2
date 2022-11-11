@@ -14,7 +14,13 @@ medio = 'MEDIO'
 dificil = 'DIFICIL'
 nivel = [facil,medio,dificil]
 
-qt_quest = [1,2,3,4,5,6,7,8,9,10]
+opcoes = ["A",'a',"B",'b',"C",'c',"D",'d',"ajuda","pular","parar"]
+pulos = [2,1,0]
+ajudas = [1,2]
+
+premio = ['1000','5000','10000','30000','50000','100000','300000','500000','1000000']
+
+qt_quest = [1,2,3,4,5,6,7,8,9]
 
 print('-'*60,'\nO jogo está para começar! E aqui está a primeira questão!\n\nVamos começar com questoes do nivel \033[32m{0}\033[m!'.format(nivel[0]))
 continuar = input('Aperte \033[32mENTER\033[m para continuar...')
@@ -133,12 +139,21 @@ def sorteia_questao(lista_questoes,nivel):
         if q.upper() == nivel[0]:
             lista = lista_questoes[q]
             pergunta = random.choice(lista)
-        if pergunta not in repetida:
-            repetida.append(pergunta)
+            if pergunta not in repetida:
+                repetida.append(pergunta)
+        elif q.upper() == nivel[1]:
+            lista = lista_questoes[q]
+            pergunta = random.choice(lista)
+            if pergunta not in repetida:
+                repetida.append(pergunta)
+        else:
+            lista = lista_questoes[q]
+            pergunta = random.choice(lista)
+            if pergunta not in repetida:
+                repetida.append(pergunta)
     return pergunta
 
 #print(sorteia_questao(lista_questoes,nivel))
-pergunta = sorteia_questao(lista_questoes,nivel)
 
 def questao_para_texto(pergunta,qt_quest):
     for i in pergunta:
@@ -158,17 +173,37 @@ def questao_para_texto(pergunta,qt_quest):
     print('-'*60,'\n\033[36mQUESTAO {0}\033[m\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}'.format(qt_quest,titulo,a,b,c,d))
     return ''
 
-for j in len(qt_quest):
+for j in range(0, len(qt_quest)):
+    pergunta = sorteia_questao(lista_questoes,nivel[0])
     print(questao_para_texto(pergunta,qt_quest[j]))
 
     resposta = input('Qual a sua resposta? ')
+    while resposta not in opcoes:
+        print('\033[30mOops! Resposta inválida! Tente de novo\033[m')
+        print('\033[34mAs opções de resposta são "A","B","C","D","ajuda","pular" e "parar"\033[m\n')
+        resposta = input('Qual a sua resposta? ')
+    
     for i in pergunta:
         if i == 'correta':
             if resposta.upper() == pergunta[i]:
-                print('\033[32mPARABENS!, Você possui agora R$1000.00!\033[m\n')
+                print('\033[32mPARABENS!, Você possui agora R${0}!\033[m\n'.format(premio[j]))
+                if premio[j] == '1000000':
+                    print('\033[32mMEUS PARABENS! Você se tornou o novo milionário!\033[m')
+            elif resposta == 'pular':
+                pulos = 2
+                while pulos != 0:
+                    print('OK, você só tem mais {0} pulos!'.format(pulos))
+                    pulos-=1
+                    continuar = input('Aperte \033[32mENTER\033[m para continuar...')
+                if pulos == 0:
+                    print('Voce nao tem mais pulos!')
+                    pergunta = sorteia_questao(lista_questoes,nivel)
+                    print(questao_para_texto(pergunta,qt_quest[j]))
+
+                pergunta = sorteia_questao(lista_questoes,nivel)
+                print(questao_para_texto(pergunta,qt_quest[j]))
             else:
                 print('\033[33mAh não! Você errou a resposta, infelizmente terá que sair sem nunhum prêmio! :(\033[m\n')
                 quit()
 
     continuar = input('Aperte \033[32mENTER\033[m para continuar...')
-
