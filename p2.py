@@ -25,6 +25,15 @@ qt_quest = [1,2,3,4,5,6,7,8,9]
 print('-'*60,'\nO jogo está para começar! E aqui está a primeira questão!\n\nVamos começar com questoes do nivel \033[32m{0}\033[m!'.format(nivel[0]))
 continuar = input('Aperte \033[32mENTER\033[m para continuar...')
 
+def transforma_base(questoes):
+    niveis = {}
+    for questao in questoes:
+        nivel = questao['nivel']
+        if nivel not in niveis:
+            niveis[nivel] = []
+        niveis[nivel].append(questao)
+    return niveis
+    
 lista_questoes = {
   "facil": [
     {
