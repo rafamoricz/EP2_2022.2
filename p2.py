@@ -132,7 +132,44 @@ lista_questoes = {
     }
   ]
 }
-
+def valida_questao(questao):
+    # Inicializa o dicionário de retorno
+    retorno = {}
+    # Verifica se as chaves titulo, nivel, opcoes e correta estão na questão
+    if 'titulo' not in questao:
+        retorno['titulo'] = 'nao_encontrado'
+    if 'nivel' not in questao:
+        retorno['nivel'] = 'nao_encontrado'
+    if 'opcoes' not in questao:
+        retorno['opcoes'] = 'nao_encontrado'
+    if 'correta' not in questao:
+        retorno['correta'] = 'nao_encontrado'
+    # Verifica se a questão (dicionário principal) tem exatamente quatro chaves
+    if len(questao) != 4:
+        retorno['outro'] = 'numero_chaves_invalido'
+    # Verifica se a chave titulo existe e se o titulo está vazio ou contém apenas espaços / caracteres em branco
+    if 'titulo' in questao and questao['titulo'].strip() == '':
+        retorno['titulo'] = 'vazio'
+    # Verifica se a chave nivel existe e se o nivel contém um dos valores facil, medio ou dificil
+    if 'nivel' in questao and questao['nivel'] not in ['facil', 'medio', 'dificil']:
+        retorno['nivel'] = 'valor_errado'
+    # Verifica se a chave opcoes existe e se todas as opções A, B, C e D existem (e nada além disso)
+    if 'opcoes' in questao and set(questao['opcoes'].keys()) != {'A', 'B', 'C', 'D'}:
+        retorno['opcoes'] = 'chave_invalida_ou_nao_encontrada'
+    # Verifica se a chave opcoes existe e se o valor da chave opcoes tem exatamente quatro chaves
+    if 'opcoes' in questao and len(questao['opcoes']) != 4:
+        retorno['opcoes'] = 'tamanho_invalido'
+    # Verifica se a chave correta existe e se o valor da chave correta é uma das opções A, B, C ou D
+    if 'opcoes' in questao and len(questao['opcoes']) == 4 and set(questao['opcoes'].keys()) == {'A', 'B', 'C', 'D'}:
+        for opcao in questao['opcoes']:
+            if questao['opcoes'][opcao].strip() == '':
+                if 'opcoes' not in retorno:
+                    retorno['opcoes'] = {}
+                retorno['opcoes'][opcao] = 'vazia'
+    # Verifica se a chave correta existe e se o valor da chave correta é uma das opções A, B, C ou D
+    if 'correta' in questao and questao['correta'] not in ['A', 'B', 'C', 'D']:
+        retorno['correta'] = 'valor_errado'
+    return retorno
 def sorteia_questao(lista_questoes,nivel):
     repetida = []
     for q in lista_questoes:
