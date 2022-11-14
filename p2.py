@@ -25,14 +25,14 @@ qt_quest = [1,2,3,4,5,6,7,8,9]
 print('-'*60,'\nO jogo está para começar! E aqui está a primeira questão!\n\nVamos começar com questoes do nivel \033[32m{0}\033[m!'.format(nivel[0]))
 continuar = input('Aperte \033[32mENTER\033[m para continuar...')
 
-def transforma_base(questoes):
-    niveis = {}
-    for questao in questoes:
-        nivel = questao['nivel']
-        if nivel not in niveis:
-            niveis[nivel] = []
-        niveis[nivel].append(questao)
-    return niveis
+# def transforma_base(questoes):
+#     niveis = {}
+#     for questao in questoes:
+#         nivel = questao['nivel']
+#         if nivel not in niveis:
+#             niveis[nivel] = []
+#         niveis[nivel].append(questao)
+#     return niveis
     
 lista_questoes = {
   "facil": [
@@ -141,6 +141,28 @@ lista_questoes = {
     }
   ]
 }
+
+def transforma_base(lista_questoes):
+    dic = {}
+    f = []
+    m = []
+    d = []
+    for questao in lista_questoes:
+        for i in questao:
+            if i == 'nivel':
+                if questao[i] == 'facil':
+                    f.append(questao)
+                    dic['facil'] = f
+                elif questao[i] == 'medio':
+                    m.append(questao)
+                    dic['medio'] = m
+                else:
+                    d.append(questao)
+                    dic['dificil'] = d
+    return dic
+
+#valida lista questoes
+
 def valida_questao(questao):
     # Inicializa o dicionário de retorno
     retorno = {}
@@ -179,6 +201,7 @@ def valida_questao(questao):
     if 'correta' in questao and questao['correta'] not in ['A', 'B', 'C', 'D']:
         retorno['correta'] = 'valor_errado'
     return retorno
+
 def sorteia_questao(lista_questoes,nivel):
     repetida = []
     for q in lista_questoes:
@@ -199,7 +222,7 @@ def sorteia_questao(lista_questoes,nivel):
                 repetida.append(pergunta)
     return pergunta
 
-#print(sorteia_questao(lista_questoes,nivel))
+#sorteia questao inedita
 
 def questao_para_texto(pergunta,qt_quest):
     for i in pergunta:
@@ -253,22 +276,4 @@ for j in range(0, len(qt_quest)):
                 quit()
 
     continuar = input('Aperte \033[32mENTER\033[m para continuar...')
-<<<<<<< HEAD
-=======
-
-def transforma_base():
-    questoes = []
-
-def valida_questao():
-    chaves = {}
-
-def valida_questoes():
-    lista = []
-
-def sorteia_questao_inedita():
-    q = {}
-
-def questao_para_texto():
-    representacao = {}
-    i = 0
-
+  
