@@ -224,6 +224,21 @@ def sorteia_questao(lista_questoes,nivel):
 
 #sorteia questao inedita
 
+def gera_ajuda(questao):
+    erro = []
+    for item in questao:
+        if item == 'opcoes':
+            for op in questao[item]:
+                if op != questao['correta']:
+                    v = item[op]
+                    erro.append(item[op])
+    erradas = int(random.randint(1,2))
+    if erradas == 1:
+        dica = 'DICA:\nOpções certamente erradas:{0}'.format(erro[erradas])
+    else:
+        dica = 'DICA:\nOpções certamente erradas:{0} | {1}'.format(erro[erradas-1],erro[erradas])
+    return dica
+
 def questao_para_texto(pergunta,qt_quest):
     for i in pergunta:
         if i == 'titulo':
